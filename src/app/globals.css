@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-spa-sand: #f1e6dc;
+  --color-spa-green: #1a3b32;
+  --color-spa-terracota: #e6a87c;
+  --color-spa-gold: #d4b78f;
+
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+
+  --animate-fade-in-left: fade-in-left 1s ease-out both;
+  --animate-fade-in-right: fade-in-right 1s ease-out both;
+  --animate-breeze: breeze 10.5s ease-in-out infinite;
+}
+
+@keyframes breeze {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  50% {
+    transform: translate(-15px, 10px) scale(1.05);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes fade-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+body {
+  background-color: var(--color-spa-sand);
+  color: var(--color-spa-green);
+  font-family: var(--font-sans), sans-serif;
+}
