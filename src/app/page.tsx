@@ -197,6 +197,115 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
         </div>
       </section>
 
+      {/* ── Resultados Reais Section ── */}
+      <section className="w-full bg-white/40 backdrop-blur-sm flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24 overflow-hidden">
+        <div className="w-full max-w-6xl flex flex-col items-center">
+          <span className="text-xs uppercase tracking-[0.3em] text-spa-terracota font-sans mb-3 animate-fade-in-up">Transformações comprovadas</span>
+          <h2 className="text-3xl lg:text-5xl font-serif text-spa-green mb-4 text-center animate-fade-in-up">
+            Resultados Reais
+          </h2>
+          <p className="text-base lg:text-lg text-spa-green/70 font-sans text-center mb-14 max-w-xl animate-fade-in-up">
+            Cada resultado é único. Veja como as técnicas Touch Up transformam silhuetas e devolvem confiança.
+          </p>
+        </div>
+
+        {/* Infinite Carousel */}
+        <div className="w-full carousel-wrapper">
+          <div className="carousel-track">
+            {/* Card 1 – Drenagem Linfática */}
+            {[
+              { img: "/antes-depois-drenagem.png", label: "Drenagem Linfática de Alta Performance" },
+              { img: "/antes-depois-facial.png",   label: "Lifting Natural Facial" },
+              { img: "/antes-depois-drenagem.png", label: "Escultura Corporal" },
+              { img: "/antes-depois-facial.png",   label: "Redução de Edema Pós-Operatório" },
+              /* Duplicate set for seamless loop */
+              { img: "/antes-depois-drenagem.png", label: "Drenagem Linfática de Alta Performance" },
+              { img: "/antes-depois-facial.png",   label: "Lifting Natural Facial" },
+              { img: "/antes-depois-drenagem.png", label: "Escultura Corporal" },
+              { img: "/antes-depois-facial.png",   label: "Redução de Edema Pós-Operatório" },
+            ].map((item, idx) => (
+              <figure
+                key={idx}
+                className="flex-shrink-0 flex flex-col items-center gap-4"
+              >
+                {/* Image frame */}
+                <div className="relative w-[280px] sm:w-[340px] lg:w-[400px] aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-white/60">
+                  <Image
+                    src={item.img}
+                    alt={`Resultado: ${item.label}`}
+                    fill
+                    className="object-cover"
+                  />
+                  {/* ANTES / DEPOIS labels */}
+                  <div className="absolute bottom-0 left-0 right-0 flex">
+                    <span className="flex-1 text-center text-xs font-sans font-medium tracking-widest py-1.5 bg-spa-green/70 text-spa-sand backdrop-blur-sm">
+                      ANTES
+                    </span>
+                    <span className="flex-1 text-center text-xs font-sans font-medium tracking-widest py-1.5 bg-spa-terracota/80 text-white backdrop-blur-sm">
+                      DEPOIS
+                    </span>
+                  </div>
+                </div>
+                {/* Caption */}
+                <figcaption className="text-sm font-sans text-spa-green/60 italic tracking-wide">
+                  {item.label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Quem Sou Eu Section ── */}
+      <section className="w-full bg-spa-sand flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
+        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* Left column – Profile image */}
+          <div className="flex justify-center md:justify-start animate-fade-in-left">
+            <div className="relative w-full max-w-[400px] aspect-[3/4] rounded-3xl overflow-hidden shadow-xl border border-white/70">
+              <Image
+                src="/massoterapeuta-perfil.png"
+                alt="Simone Anselmini – massoterapeuta"
+                fill
+                className="object-cover"
+              />
+              {/* Subtle warm overlay at bottom */}
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-spa-green/30 to-transparent" />
+            </div>
+          </div>
+
+          {/* Right column – Bio text */}
+          <div className="flex flex-col gap-7 animate-fade-in-right">
+            <span className="text-xs uppercase tracking-[0.3em] text-spa-terracota font-sans">A profissional por trás do método</span>
+            <h2 className="text-3xl lg:text-5xl font-serif text-spa-green leading-tight">
+              Quem cuida de você
+            </h2>
+
+            <p className="text-base lg:text-lg text-spa-green/80 font-sans leading-relaxed">
+              {/* Parágrafo 1 – Insira aqui sua apresentação pessoal */}
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur leo, in commodo orci. Sed volutpat mi nec orci malesuada.
+            </p>
+            <p className="text-base lg:text-lg text-spa-green/80 font-sans leading-relaxed">
+              {/* Parágrafo 2 – Insira aqui sua formação e experiência */}
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+            </p>
+            <p className="text-base lg:text-lg text-spa-green/80 font-sans leading-relaxed">
+              {/* Parágrafo 3 – Insira aqui sua missão e valores */}
+              Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Maecenas sed diam eget risus varius blandit sit amet non magna.
+            </p>
+
+            {/* Styled signature */}
+            <div className="mt-4 flex flex-col gap-1">
+              <span className="signature-text">Simone Anselmini</span>
+              <span className="text-xs font-sans text-spa-green/50 tracking-widest uppercase mt-1">
+                Massoterapeuta &amp; Fundadora
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       {/* Why Choose Us Section */}
       <section className="w-full bg-[#fdfaf5] flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
         <h2 className="text-3xl lg:text-4xl font-serif text-spa-green mb-12 lg:mb-16 text-center">Por Que Escolher Touch Up Massage?</h2>

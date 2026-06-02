@@ -12,6 +12,7 @@
   --animate-fade-in-left: fade-in-left 1s ease-out both;
   --animate-fade-in-right: fade-in-right 1s ease-out both;
   --animate-breeze: breeze 10.5s ease-in-out infinite;
+  --animate-fade-in-up: fade-in-up 0.8s ease-out both;
 }
 
 @keyframes breeze {
@@ -52,8 +53,64 @@
   }
 }
 
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-track {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 body {
   background-color: var(--color-spa-sand);
   color: var(--color-spa-green);
   font-family: var(--font-sans), sans-serif;
+}
+
+/* ── Resultados Carousel ── */
+.carousel-track {
+  display: flex;
+  gap: 2.5rem;
+  animation: slide-track 30s linear infinite;
+  width: max-content;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* ── Assinatura estilizada ── */
+.signature-text {
+  font-family: var(--font-playfair), serif;
+  font-style: italic;
+  font-size: 1.75rem;
+  color: var(--color-spa-terracota);
+  line-height: 1.2;
+  position: relative;
+  display: inline-block;
+}
+
+.signature-text::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-spa-terracota), transparent);
+  margin-top: 0.35rem;
+  border-radius: 2px;
 }
