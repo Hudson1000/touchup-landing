@@ -114,3 +114,161 @@ body {
   margin-top: 0.35rem;
   border-radius: 2px;
 }
+
+/* ── Depoimentos – Testimonial Cards ── */
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 1.25rem;
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(26, 59, 50, 0.12);
+}
+
+/* Opening quote decorative mark */
+.testimonial-card::before {
+  content: '\201C';
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 5rem;
+  line-height: 0;
+  color: var(--color-spa-terracota);
+  opacity: 0.25;
+  position: absolute;
+  top: 2.25rem;
+  left: 1.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Star rating ── */
+.star-rating {
+  display: flex;
+  gap: 0.2rem;
+  color: var(--color-spa-terracota);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+
+/* ── Video Player – Poster + Play Overlay ── */
+.video-player-wrapper {
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-spa-green);
+  box-shadow: 0 8px 32px rgba(26, 59, 50, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Force 16:9 aspect ratio */
+  aspect-ratio: 16 / 9;
+}
+
+/* Poster image fills the container */
+.video-player-wrapper .video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+/* Subtle darkening overlay for contrast */
+.video-player-wrapper .video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 59, 50, 0.10) 0%,
+    rgba(26, 59, 50, 0.35) 100%
+  );
+  transition: background 0.3s ease;
+}
+
+/* Play button circle */
+.video-player-wrapper .play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.play-btn-circle {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(26, 59, 50, 0.25);
+  transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.video-player-wrapper:hover .play-btn-circle {
+  transform: scale(1.12);
+  background: #fff;
+  box-shadow: 0 8px 32px rgba(26, 59, 50, 0.35);
+}
+
+.video-player-wrapper:hover .video-poster {
+  transform: scale(1.04);
+}
+
+/* Triangle play icon inside the circle */
+.play-btn-circle::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0.7rem 0 0.7rem 1.2rem;
+  border-color: transparent transparent transparent var(--color-spa-green);
+  margin-left: 0.25rem; /* optical center */
+}
+
+/* Caption below video */
+.video-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(to top, rgba(26,59,50,0.75), transparent);
+  color: var(--color-spa-sand);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  z-index: 3;
+}
+
+/* When video is playing: hide overlay + poster visually */
+.video-player-wrapper.is-playing .video-poster,
+.video-player-wrapper.is-playing .video-overlay,
+.video-player-wrapper.is-playing .play-btn,
+.video-player-wrapper.is-playing .video-caption {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-player-wrapper video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

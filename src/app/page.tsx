@@ -1,4 +1,5 @@
 import Image from "next/image";
+import VideoPlayer from "./VideoPlayer";
 
 export default function Home() {
   return (
@@ -253,6 +254,126 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
               </figure>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Depoimentos Section ── */}
+      <section className="w-full bg-spa-green flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
+        <div className="w-full max-w-6xl flex flex-col items-center">
+
+          {/* Section header */}
+          <span className="text-xs uppercase tracking-[0.3em] text-spa-gold/70 font-sans mb-3">
+            Prova social
+          </span>
+          <h2 className="text-3xl lg:text-5xl font-serif text-spa-sand mb-4 text-center">
+            A Escolha de Nossas Clientes
+          </h2>
+          <p className="text-base lg:text-lg text-spa-sand/60 font-sans text-center mb-16 max-w-xl">
+            Experiências reais de quem já transformou seu corpo e sua autoestima.
+          </p>
+
+          {/* ── Bloco A: Text Testimonials Grid ── */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+
+            {/* Card 1 */}
+            <article className="testimonial-card">
+              <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
+                <Image
+                  src="/avatar-cliente-1.png"
+                  alt="Mariana Costa"
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                />
+              </div>
+              <div className="star-rating" aria-label="5 estrelas">
+                {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
+              </div>
+              <p className="text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2">
+                A massagem da Simone é completamente diferente de tudo que já experimentei. Em apenas duas sessões, meu abdômen desinflou visivelmente. Indico para todas as minhas amigas!
+              </p>
+              <div>
+                <p className="font-semibold text-spa-green text-sm">Mariana Costa</p>
+                <p className="text-xs text-spa-green/50 tracking-wide">@mariana.costa</p>
+              </div>
+            </article>
+
+            {/* Card 2 */}
+            <article className="testimonial-card">
+              <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
+                <Image
+                  src="/avatar-cliente-2.png"
+                  alt="Fernanda Lima"
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                />
+              </div>
+              <div className="star-rating" aria-label="5 estrelas">
+                {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
+              </div>
+              <p className="text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2">
+                Fui por indicação e saí completamente apaixonada. O ambiente é impecável, a Simone é uma artista. Meu rosto ficou visivelmente mais definido depois do lifting facial.
+              </p>
+              <div>
+                <p className="font-semibold text-spa-green text-sm">Fernanda Lima</p>
+                <p className="text-xs text-spa-green/50 tracking-wide">@fer.lima_oficial</p>
+              </div>
+            </article>
+
+            {/* Card 3 */}
+            <article className="testimonial-card">
+              <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
+                <Image
+                  src="/avatar-cliente-3.png"
+                  alt="Beatriz Nunes"
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                />
+              </div>
+              <div className="star-rating" aria-label="5 estrelas">
+                {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
+              </div>
+              <p className="text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2">
+                Vale cada centavo! A técnica dela é única — ao mesmo tempo relaxante e com resultados estéticos reais. Minha silhueta mudou e minha autoestima foi às alturas.
+              </p>
+              <div>
+                <p className="font-semibold text-spa-green text-sm">Beatriz Nunes</p>
+                <p className="text-xs text-spa-green/50 tracking-wide">@bia.nunes_fit</p>
+              </div>
+            </article>
+
+          </div>{/* /grid */}
+
+          {/* ── Bloco B: Video Testimonials ── */}
+          <div className="w-full flex flex-col items-center">
+            <span className="text-xs uppercase tracking-[0.3em] text-spa-gold/70 font-sans mb-3">
+              Depoimentos em vídeo
+            </span>
+            <h3 className="text-2xl lg:text-3xl font-serif text-spa-sand mb-10 text-center">
+              Ouça de quem viveu a experiência
+            </h3>
+
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+
+              {/* Video 1 — swap src with real video path when available */}
+              <VideoPlayer
+                poster="/video-poster-1.png"
+                caption="‘A melhor drenagem que já fiz na vida.’ — Cliente, sessão corporal 90 min"
+                label="Reproduzir depoimento em vídeo 1"
+              />
+
+              {/* Video 2 — swap src with real video path when available */}
+              <VideoPlayer
+                poster="/video-poster-2.png"
+                caption="‘Saí completamente transformada.’ — Cliente, lifting facial"
+                label="Reproduzir depoimento em vídeo 2"
+              />
+
+            </div>
+          </div>{/* /video block */}
+
         </div>
       </section>
 
