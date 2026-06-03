@@ -1,9 +1,12 @@
 import Image from "next/image";
 import VideoPlayer from "./VideoPlayer";
+import Preloader from "./Preloader";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-spa-sand font-sans flex flex-col">
+      {/* Tela de Preloader com Lottie */}
+      <Preloader />
 
       {/* Header Centralizado */}
       <header className="w-full py-10 flex justify-center bg-spa-green">
