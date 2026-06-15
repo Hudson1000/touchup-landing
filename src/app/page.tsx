@@ -76,19 +76,13 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
             </a>
           </nav>
 
-          {/* Audio Player — desktop (hidden on mobile) */}
-          <div className="hidden md:flex items-center">
-            <AudioPlayer />
-          </div>
-
-          {/* Mobile: audio + hamburger */}
-          <div className="flex md:hidden items-center gap-2">
-            <AudioPlayer />
+          {/* Audio Player — única instância, visível em todos os viewports */}
+          <AudioPlayer />
 
           {/* Mobile Hamburguer Toggle */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex items-center justify-center p-2 text-[#e7b07a] focus:outline-none"
+            className="md:hidden flex items-center justify-center p-2 text-[#e7b07a] focus:outline-none"
             aria-label="Toggle Menu"
           >
             <svg className="w-7 h-7 fill-none stroke-current" viewBox="0 0 24 24">
@@ -99,7 +93,6 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
               )}
             </svg>
           </button>
-          </div>
         </div>
 
         {/* Mobile Dropdown Menu */}
