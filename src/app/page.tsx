@@ -464,30 +464,36 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
               Ouça de quem viveu a experiência
             </h3>
 
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8">
 
               <VideoPlayer
                 src="/video_depoimento_1.mp4"
-                caption="‘A melhor drenagem que já fiz na vida.’ — Depoimento 1"
+                caption="'A melhor drenagem que já fiz na vida.' — Depoimento 1"
                 label="Reproduzir depoimento em vídeo 1"
               />
 
               <VideoPlayer
                 src="/video_depoimento_2.mp4"
-                caption="‘Saí completamente transformada.’ — Depoimento 2"
+                caption="'Saí completamente transformada.' — Depoimento 2"
                 label="Reproduzir depoimento em vídeo 2"
               />
 
               <VideoPlayer
                 src="/video_depoimento_3.mp4"
-                caption="‘Sensação única de relaxamento e contorno.’ — Depoimento 3"
+                caption="'Sensação única de relaxamento e contorno.' — Depoimento 3"
                 label="Reproduzir depoimento em vídeo 3"
               />
 
               <VideoPlayer
                 src="/video_depoimento_4.mp4"
-                caption="‘Resultados visíveis logo na primeira sessão.’ — Depoimento 4"
+                caption="'Resultados visíveis logo na primeira sessão.' — Depoimento 4"
                 label="Reproduzir depoimento em vídeo 4"
+              />
+
+              <VideoPlayer
+                src="/video_depoimento_5.mp4"
+                caption="'Uma experiência que mudou minha autoestima.' — Depoimento 5"
+                label="Reproduzir depoimento em vídeo 5"
               />
 
             </div>
