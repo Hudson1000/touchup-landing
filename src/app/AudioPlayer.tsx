@@ -75,21 +75,18 @@ export default function AudioPlayer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Sync volume changes to the audio element
+  // Sync volume + mute state to the audio element
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    if (!isMuted) {
+    if (isMuted || volume === 0) {
+      audio.volume = 0;
+      audio.muted = true;
+    } else {
+      audio.muted = false;
       audio.volume = volume;
     }
   }, [volume, isMuted]);
-
-  // Sync mute state
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    audio.muted = isMuted;
-  }, [isMuted]);
 
   const toggleMute = () => {
     setIsMuted((prev) => !prev);
@@ -98,7 +95,12 @@ export default function AudioPlayer() {
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = parseFloat(e.target.value);
     setVolume(v);
-    if (isMuted && v > 0) setIsMuted(false);
+    // Slider dragged to 0 → mute; dragged above 0 → unmute
+    if (v === 0) {
+      setIsMuted(true);
+    } else if (isMuted) {
+      setIsMuted(false);
+    }
   };
 
   return (
