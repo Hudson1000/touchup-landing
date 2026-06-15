@@ -296,9 +296,35 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
                 </svg>
               </div>
               <h3 className="text-2xl font-serif text-spa-green">Spa em Eventos</h3>
-              <p className="text-base text-spa-green/80 font-sans leading-relaxed">
-                Leve a sofisticação da TouchUp para o seu evento. Nossa equipe sênior proporciona momentos de relaxamento profundo e bem-estar para seus convidados, criando uma experiência inesquecível.
+
+              {/* Destaque do post */}
+              <p className="text-base font-semibold text-spa-terracota font-sans leading-snug">
+                Transforme seu evento em uma experiência de bem-estar!
               </p>
+
+              <p className="text-base text-spa-green/80 font-sans leading-relaxed">
+                Leve relaxamento e conforto para seus convidados com <strong>Quick Massagens</strong>. Nossa equipe sênior atende:
+              </p>
+
+              {/* Lista de ocasiões */}
+              <ul className="flex flex-col gap-2 mt-1">
+                {["Eventos", "Casamentos", "Empresas", "Formaturas, entre outros"].map((item) => (
+                  <li key={item} className="flex items-center gap-2.5 text-spa-green/85 font-sans text-base">
+                    <span className="w-3 h-3 rounded-sm bg-spa-terracota flex-shrink-0" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA inline */}
+              <a
+                href="https://wa.me/5500000000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-block self-start px-6 py-2.5 bg-spa-green text-[#e7b07a] font-semibold text-sm rounded-lg hover:bg-[#153029] hover:shadow-md transition-all duration-300"
+              >
+                Entre em contato e garanta já!
+              </a>
             </div>
           </div>
 
