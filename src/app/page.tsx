@@ -1,25 +1,32 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import VideoPlayer from "./VideoPlayer";
 import Preloader from "./Preloader";
+import AudioPlayer from "./AudioPlayer";
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <main className="min-h-screen bg-spa-sand font-sans flex flex-col">
       {/* Tela de Preloader com Lottie */}
       <Preloader />
 
-      {/* Header Centralizado */}
-      <header className="w-full py-10 flex justify-center bg-spa-green">
-        <div className="flex flex-row items-center justify-center gap-3">
-          <svg 
-            className="w-14 h-14 fill-current text-[#e7b07a]"
-            version="1.0" 
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="350 480 560 520"
-            preserveAspectRatio="xMidYMid meet"
-          >
-            <g transform="translate(0.000000,896.000000) scale(0.100000,-0.100000)" stroke="none">
-              <path d="M4260 3025 c67 -35 110 -146 110 -285 0 -57 -12 -151 -35 -273 -48
+      {/* Header Centralizado / Menu de Navegação */}
+      <header className="w-full py-4 bg-spa-green sticky top-0 z-50 shadow-md transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-6 lg:px-24 flex items-center justify-between">
+          {/* Logo */}
+          <a href="#inicio" className="flex flex-row items-center gap-3 group">
+            <svg 
+              className="w-11 h-11 fill-current text-[#e7b07a] transition-transform duration-300 group-hover:scale-105"
+              version="1.0" 
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="350 480 560 520"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <g transform="translate(0.000000,896.000000) scale(0.100000,-0.100000)" stroke="none">
+                <path d="M4260 3025 c67 -35 110 -146 110 -285 0 -57 -12 -151 -35 -273 -48
 -264 -59 -374 -52 -567 12 -314 84 -659 247 -1179 28 -90 49 -166 46 -169 -8
 -8 -148 136 -241 248 -216 260 -363 566 -424 884 -60 309 -47 611 39 946 84
 325 189 458 310 395z m985 -107 c2 -2 -17 -37 -42 -78 -184 -299 -336 -733
@@ -44,16 +51,81 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
 -358 153 -674 311 -990 70 -140 128 -240 187 -323 19 -27 33 -51 30 -53 -8 -8
 -246 232 -305 308 -257 329 -419 725 -478 1168 -22 173 -15 524 15 694 74 415
 232 774 494 1119 79 105 301 347 318 347 3 0 42 -32 85 -71z"/>
-            </g>
-          </svg>
-          <span className="text-3xl font-serif text-[#e7b07a] tracking-wide">
-            Simone Anselmini
-          </span>
+              </g>
+            </svg>
+            <span className="text-xl lg:text-2xl font-serif text-[#e7b07a] tracking-wide transition-colors duration-300 group-hover:text-spa-gold">
+              Simone Anselmini
+            </span>
+          </a>
+
+          {/* Desktop Links */}
+          <nav className="hidden md:flex items-center gap-7 lg:gap-9">
+            <a href="#inicio" className="nav-link text-sm lg:text-base">Início</a>
+            <a href="#protocolos" className="nav-link text-sm lg:text-base">Protocolos</a>
+            <a href="#resultados" className="nav-link text-sm lg:text-base">Resultados</a>
+            <a href="#experiencias" className="nav-link text-sm lg:text-base">Experiências</a>
+            <a href="#treinamento" className="nav-link text-sm lg:text-base">Treinamento</a>
+            <a href="#sobre" className="nav-link text-sm lg:text-base">Sobre Simone</a>
+            <a 
+              href="https://wa.me/5500000000000" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 bg-[#e7b07a] hover:bg-[#d69f69] text-spa-green font-medium text-sm lg:text-base rounded-full transition-all duration-300 hover:shadow-lg active:scale-95 transform"
+            >
+              Agendar
+            </a>
+          </nav>
+
+          {/* Audio Player — desktop (hidden on mobile) */}
+          <div className="hidden md:flex items-center">
+            <AudioPlayer />
+          </div>
+
+          {/* Mobile: audio + hamburger */}
+          <div className="flex md:hidden items-center gap-2">
+            <AudioPlayer />
+
+          {/* Mobile Hamburguer Toggle */}
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="flex items-center justify-center p-2 text-[#e7b07a] focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            <svg className="w-7 h-7 fill-none stroke-current" viewBox="0 0 24 24">
+              {isMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+          </div>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0 pointer-events-none'}`}>
+          <nav className="flex flex-col items-center gap-4 py-4 bg-spa-green/95 border-t border-white/5">
+            <a href="#inicio" onClick={() => setIsMenuOpen(false)} className="nav-link text-base py-1">Início</a>
+            <a href="#protocolos" onClick={() => setIsMenuOpen(false)} className="nav-link text-base py-1">Protocolos</a>
+            <a href="#resultados" onClick={() => setIsMenuOpen(false)} className="nav-link text-base py-1">Resultados</a>
+            <a href="#experiencias" onClick={() => setIsMenuOpen(false)} className="nav-link text-base py-1">Experiências</a>
+            <a href="#treinamento" onClick={() => setIsMenuOpen(false)} className="nav-link text-base py-1">Treinamento</a>
+            <a href="#sobre" onClick={() => setIsMenuOpen(false)} className="nav-link text-base py-1">Sobre Simone</a>
+            <a 
+              href="https://wa.me/5500000000000" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={() => setIsMenuOpen(false)}
+              className="mt-2 px-8 py-2.5 bg-[#e7b07a] text-spa-green font-semibold text-base rounded-full transition-all duration-300 w-2/3 text-center shadow-md active:scale-95"
+            >
+              Agendar
+            </a>
+          </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden w-full flex flex-col items-center justify-center px-6 py-12 md:py-24 lg:px-24">
+      <section id="inicio" className="relative overflow-hidden w-full flex flex-col items-center justify-center px-6 py-12 md:py-24 lg:px-24">
         {/* Animated Leaf Background */}
         <div
           className="absolute inset-0 z-0 animate-breeze opacity-20 pointer-events-none"
@@ -175,24 +247,24 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
       </section>
 
       {/* Services Menu Section */}
-      <section className="w-full bg-spa-sand flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
-        <h2 className="text-3xl lg:text-5xl font-serif text-spa-green mb-16 text-center">Protocolos e Investimento</h2>
+      <section id="protocolos" className="w-full bg-spa-sand flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
+        <h2 className="text-3xl lg:text-5xl font-serif text-spa-green mb-16 text-center">Protocolos</h2>
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
           <div className="flex flex-col w-full">
-            <h3 className="text-xl lg:text-2xl font-serif text-spa-green mb-8 text-center md:text-left border-b border-spa-green/20 pb-4">Com a Simone</h3>
+            <h3 className="text-xl lg:text-2xl font-serif text-spa-green mb-8 text-center border-b border-spa-green/20 pb-4">Com a Simone</h3>
             <ul className="flex flex-col w-full">
               {["60 minutos corporal", "50 minutos facial", "90 minutos corporal", "90 minutos corporal e facial", "120 minutos corporal e facial"].map((service, idx) => (
-                <li key={`simone-${idx}`} className="flex justify-between items-center py-4 border-b border-spa-green/10 last:border-0 group">
+                <li key={`simone-${idx}`} className="py-4 border-b border-spa-green/10 last:border-0 group text-center">
                   <span className="text-lg text-spa-green/80 font-sans font-light tracking-wide group-hover:text-spa-green transition-colors">{service}</span>
                 </li>
               ))}
             </ul>
           </div>
           <div className="flex flex-col w-full">
-            <h3 className="text-xl lg:text-2xl font-serif text-spa-green mb-8 text-center md:text-left border-b border-spa-green/20 pb-4">Com a Equipe</h3>
+            <h3 className="text-xl lg:text-2xl font-serif text-spa-green mb-8 text-center border-b border-spa-green/20 pb-4">Com a Equipe</h3>
             <ul className="flex flex-col w-full">
               {["60 minutos corporal", "50 minutos facial", "90 minutos corporal", "90 minutos corporal e facial", "120 minutos corporal e facial"].map((service, idx) => (
-                <li key={`equipe-${idx}`} className="flex justify-between items-center py-4 border-b border-spa-green/10 last:border-0 group">
+                <li key={`equipe-${idx}`} className="py-4 border-b border-spa-green/10 last:border-0 group text-center">
                   <span className="text-lg text-spa-green/80 font-sans font-light tracking-wide group-hover:text-spa-green transition-colors">{service}</span>
                 </li>
               ))}
@@ -201,8 +273,55 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
         </div>
       </section>
 
+      {/* ── Experiências Exclusivas Section ── */}
+      <section className="w-full bg-[#fdfaf5] flex flex-col items-center py-20 lg:py-28 px-6 lg:px-24">
+        <div className="w-full max-w-5xl flex flex-col items-center">
+          <span className="text-xs uppercase tracking-[0.3em] text-spa-terracota font-sans mb-3">Serviços premium</span>
+          <h2 className="text-3xl lg:text-5xl font-serif text-spa-green mb-14 text-center">
+            Experiências Exclusivas
+          </h2>
+          
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-14">
+            {/* Card 1: Viagens */}
+            <div className="bg-white/60 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border border-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-4">
+              <div className="w-12 h-12 rounded-full bg-spa-sand/80 flex items-center justify-center text-spa-green mb-2">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h2m0 0l-3-3m3 3l-3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-serif text-spa-green">Acompanhamento em Viagens</h3>
+              <p className="text-base text-spa-green/80 font-sans leading-relaxed">
+                A excelência do método TouchUp onde você estiver. Simone acompanha clientes em viagens, garantindo que sua rotina de cuidados e relaxamento não seja interrompida, com total discrição e conforto.
+              </p>
+            </div>
+
+            {/* Card 2: Eventos */}
+            <div className="bg-white/60 backdrop-blur-sm p-8 lg:p-10 rounded-2xl border border-white shadow-md hover:shadow-xl transition-all duration-300 flex flex-col gap-4">
+              <div className="w-12 h-12 rounded-full bg-spa-sand/80 flex items-center justify-center text-spa-green mb-2">
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-serif text-spa-green">Spa em Eventos</h3>
+              <p className="text-base text-spa-green/80 font-sans leading-relaxed">
+                Leve a sofisticação da TouchUp para o seu evento. Nossa equipe sênior proporciona momentos de relaxamento profundo e bem-estar para seus convidados, criando uma experiência inesquecível.
+              </p>
+            </div>
+          </div>
+
+          <a 
+            href="https://wa.me/5500000000000" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="px-8 py-4 bg-spa-green text-[#e7b07a] hover:bg-[#153029] hover:shadow-lg transition-all duration-300 font-semibold text-lg rounded-lg text-center"
+          >
+            Consultar Disponibilidade
+          </a>
+        </div>
+      </section>
+
       {/* ── Resultados Reais Section ── */}
-      <section className="w-full bg-white/40 backdrop-blur-sm flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24 overflow-hidden">
+      <section id="resultados" className="w-full bg-white/40 backdrop-blur-sm flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24 overflow-hidden">
         <div className="w-full max-w-6xl flex flex-col items-center">
           <span className="text-xs uppercase tracking-[0.3em] text-spa-terracota font-sans mb-3 animate-fade-in-up">Transformações comprovadas</span>
           <h2 className="text-3xl lg:text-5xl font-serif text-spa-green mb-4 text-center animate-fade-in-up">
@@ -228,40 +347,27 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
               { img: "/antes-depois-drenagem.png", label: "Escultura Corporal" },
               { img: "/antes-depois-facial.png",   label: "Redução de Edema Pós-Operatório" },
             ].map((item, idx) => (
-              <figure
+              <div
                 key={idx}
-                className="flex-shrink-0 flex flex-col items-center gap-4"
+                className="flex-shrink-0 py-2"
               >
                 {/* Image frame */}
-                <div className="relative w-[280px] sm:w-[340px] lg:w-[400px] aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-white/60">
+                <div className="relative w-[280px] sm:w-[340px] lg:w-[380px] aspect-[1024/1080] rounded-2xl overflow-hidden shadow-lg border border-white/60 hover:shadow-xl transition-shadow duration-300">
                   <Image
                     src={item.img}
-                    alt={`Resultado: ${item.label}`}
+                    alt="Resultado antes e depois"
                     fill
                     className="object-cover"
                   />
-                  {/* ANTES / DEPOIS labels */}
-                  <div className="absolute bottom-0 left-0 right-0 flex">
-                    <span className="flex-1 text-center text-xs font-sans font-medium tracking-widest py-1.5 bg-spa-green/70 text-spa-sand backdrop-blur-sm">
-                      ANTES
-                    </span>
-                    <span className="flex-1 text-center text-xs font-sans font-medium tracking-widest py-1.5 bg-spa-terracota/80 text-white backdrop-blur-sm">
-                      DEPOIS
-                    </span>
-                  </div>
                 </div>
-                {/* Caption */}
-                <figcaption className="text-sm font-sans text-spa-green/60 italic tracking-wide">
-                  {item.label}
-                </figcaption>
-              </figure>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── Depoimentos Section ── */}
-      <section className="w-full bg-spa-green flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
+      <section id="experiencias" className="w-full bg-spa-green flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
         <div className="w-full max-w-6xl flex flex-col items-center">
 
           {/* Section header */}
@@ -358,20 +464,30 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
               Ouça de quem viveu a experiência
             </h3>
 
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
 
-              {/* Video 1 — swap src with real video path when available */}
               <VideoPlayer
-                poster="/video-poster-1.png"
-                caption="‘A melhor drenagem que já fiz na vida.’ — Cliente, sessão corporal 90 min"
+                src="/video_depoimento_1.mp4"
+                caption="‘A melhor drenagem que já fiz na vida.’ — Depoimento 1"
                 label="Reproduzir depoimento em vídeo 1"
               />
 
-              {/* Video 2 — swap src with real video path when available */}
               <VideoPlayer
-                poster="/video-poster-2.png"
-                caption="‘Saí completamente transformada.’ — Cliente, lifting facial"
+                src="/video_depoimento_2.mp4"
+                caption="‘Saí completamente transformada.’ — Depoimento 2"
                 label="Reproduzir depoimento em vídeo 2"
+              />
+
+              <VideoPlayer
+                src="/video_depoimento_3.mp4"
+                caption="‘Sensação única de relaxamento e contorno.’ — Depoimento 3"
+                label="Reproduzir depoimento em vídeo 3"
+              />
+
+              <VideoPlayer
+                src="/video_depoimento_4.mp4"
+                caption="‘Resultados visíveis logo na primeira sessão.’ — Depoimento 4"
+                label="Reproduzir depoimento em vídeo 4"
               />
 
             </div>
@@ -381,14 +497,14 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
       </section>
 
       {/* ── Quem Sou Eu Section ── */}
-      <section className="w-full bg-spa-sand flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
+      <section id="sobre" className="w-full bg-spa-sand flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
         <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* Left column – Profile image */}
           <div className="flex justify-center md:justify-start animate-fade-in-left">
-            <div className="relative w-full max-w-[400px] aspect-[3/4] rounded-3xl overflow-hidden shadow-xl border border-white/70">
+            <div className="relative w-full max-w-[400px] aspect-[1254/1920] rounded-3xl overflow-hidden shadow-xl border border-white/70">
               <Image
-                src="/massoterapeuta-perfil.png"
+                src="/quem_sou_eu.png"
                 alt="Simone Anselmini – massoterapeuta"
                 fill
                 className="object-cover"
@@ -402,20 +518,20 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
           <div className="flex flex-col gap-7 animate-fade-in-right">
             <span className="text-xs uppercase tracking-[0.3em] text-spa-terracota font-sans">A profissional por trás do método</span>
             <h2 className="text-3xl lg:text-5xl font-serif text-spa-green leading-tight">
-              Quem cuida de você
+              QUEM SOU EU?
             </h2>
 
             <p className="text-base lg:text-lg text-spa-green/80 font-sans leading-relaxed">
-              {/* Parágrafo 1 – Insira aqui sua apresentação pessoal */}
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum. Donec in efficitur leo, in commodo orci. Sed volutpat mi nec orci malesuada.
+              Sou Simone Beatriz Anselmini. Nasci em Três Passos (RS) e estou em São Paulo (SP) desde 1995.
             </p>
             <p className="text-base lg:text-lg text-spa-green/80 font-sans leading-relaxed">
-              {/* Parágrafo 2 – Insira aqui sua formação e experiência */}
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+              Tenho um filho, João Felipe, e três irmãos maravilhosos. Venho de uma família disfuncional, pais alcoólatras e totalmente ausentes. Minha mãe faleceu em 1994 e meu pai nos abandonou ainda pequenos. E aqui estou eu, com 50 anos, crescendo profissionalmente e me empenhando ao máximo.
             </p>
             <p className="text-base lg:text-lg text-spa-green/80 font-sans leading-relaxed">
-              {/* Parágrafo 3 – Insira aqui sua missão e valores */}
-              Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Maecenas sed diam eget risus varius blandit sit amet non magna.
+              Estou no ramo da massagem há 10 anos. Estudei na Valmari Cosméticos e depois fiz especializações em diversas técnicas até criar a minha, a Touch Up Massage (Facial e Corporal). Vivo buscando aprimoramento profissional, espiritual e pessoal.
+            </p>
+            <p className="text-base lg:text-lg text-spa-green/80 font-sans leading-relaxed">
+              Sou extremamente feliz e grata pelo que a vida me deu e está me dando. Tenho muitos medos, mas enfrento todos eles na medida do possível. Muito obrigada por me escutar e aprender comigo!
             </p>
 
             {/* Styled signature */}
@@ -438,6 +554,141 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
           <div className="flex flex-col gap-3"><h3 className="text-xl font-serif text-spa-green">Resultados Imediatos</h3><p className="text-lg text-spa-green/80 font-sans leading-relaxed">Redução drástica de edemas e aprimoramento do contorno corporal desde a primeira experiência.</p></div>
           <div className="flex flex-col gap-3"><h3 className="text-xl font-serif text-spa-green">Alta Expertise</h3><p className="text-lg text-spa-green/80 font-sans leading-relaxed">Profissionais submetidos a uma rigorosa supervisão técnica, assegurando um padrão inegociável de qualidade.</p></div>
           <div className="flex flex-col gap-3"><h3 className="text-xl font-serif text-spa-green">Flexibilidade de Protocolos</h3><p className="text-lg text-spa-green/80 font-sans leading-relaxed">Diferentes tempos de sessão estruturados para se adequar a rotinas exigentes.</p></div>
+        </div>
+      </section>
+
+      {/* ── Treinamento TouchUp Massage Section ── */}
+      <section id="treinamento" className="w-full bg-[#fdfaf5] flex flex-col items-center py-20 lg:py-28 px-6 lg:px-24">
+        <div className="w-full max-w-6xl flex flex-col items-center gap-14">
+          
+          {/* Cabeçalho da Seção */}
+          <div className="flex flex-col gap-5 items-center text-center max-w-3xl">
+            <span className="text-xs uppercase tracking-[0.3em] text-spa-terracota font-sans">Capacitação profissional</span>
+            <h2 className="text-3xl lg:text-5xl font-serif text-spa-green leading-tight">
+              Treinamento Touch Up Massage
+            </h2>
+            <h3 className="text-xl lg:text-2xl font-serif text-spa-terracota italic font-normal leading-relaxed">
+              &ldquo;Mais do que técnica, um convite para viver o toque com excelência.&rdquo;
+            </h3>
+            <p className="text-base lg:text-lg text-spa-green/80 font-sans leading-relaxed">
+              São dois dias totalmente práticos. O primeiro dia contempla a massagem facial e o segundo a massagem corporal. Inclui apostila e certificado.
+            </p>
+          </div>
+
+          {/* Galeria Editorial — 8 fotos 1080×1350 (ratio 4:5) */}
+          <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4">
+            {/* Col A: foto 1 (full height) + foto 2 */}
+            <div className="flex flex-col gap-3 lg:gap-4">
+              <div className="relative w-full aspect-[4/5] overflow-hidden shadow-md group">
+                <Image
+                  src="/CURSO_1.png"
+                  alt="Treinamento Touch Up Massage — foto 1"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-spa-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+              <div className="relative w-full aspect-[4/5] overflow-hidden shadow-md group">
+                <Image
+                  src="/CURSO_2.png"
+                  alt="Treinamento Touch Up Massage — foto 2"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-spa-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            </div>
+
+            {/* Col B: foto 3 + foto 4 com offset superior */}
+            <div className="flex flex-col gap-3 lg:gap-4 md:mt-8">
+              <div className="relative w-full aspect-[4/5] overflow-hidden shadow-md group">
+                <Image
+                  src="/CURSO_3.png"
+                  alt="Treinamento Touch Up Massage — foto 3"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-spa-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+              <div className="relative w-full aspect-[4/5] overflow-hidden shadow-md group">
+                <Image
+                  src="/CURSO_4.png"
+                  alt="Treinamento Touch Up Massage — foto 4"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-spa-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            </div>
+
+            {/* Col C: foto 5 + foto 6 */}
+            <div className="flex flex-col gap-3 lg:gap-4">
+              <div className="relative w-full aspect-[4/5] overflow-hidden shadow-md group">
+                <Image
+                  src="/CURSO_5.png"
+                  alt="Treinamento Touch Up Massage — foto 5"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-spa-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+              <div className="relative w-full aspect-[4/5] overflow-hidden shadow-md group">
+                <Image
+                  src="/CURSO_6.png"
+                  alt="Treinamento Touch Up Massage — foto 6"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-spa-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            </div>
+
+            {/* Col D: foto 7 + foto 8 com offset superior */}
+            <div className="flex flex-col gap-3 lg:gap-4 md:mt-8">
+              <div className="relative w-full aspect-[4/5] overflow-hidden shadow-md group">
+                <Image
+                  src="/CURSO_7.png"
+                  alt="Treinamento Touch Up Massage — foto 7"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-spa-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+              <div className="relative w-full aspect-[4/5] overflow-hidden shadow-md group">
+                <Image
+                  src="/CURSO_8.png"
+                  alt="Treinamento Touch Up Massage — foto 8"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-spa-green/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-sm text-spa-green/60 font-sans tracking-wide">
+              Dois dias práticos · Apostila + Certificado inclusos
+            </p>
+            <a 
+              href="https://wa.me/5500000000000" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block px-10 py-4 bg-spa-green hover:bg-[#153029] text-[#e7b07a] font-medium text-lg rounded-lg transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-1 text-center"
+            >
+              Quero participar do Treinamento
+            </a>
+          </div>
+
         </div>
       </section>
 
