@@ -403,12 +403,12 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
           {/* ── Bloco A: Text Testimonials Grid ── */}
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
 
-            {/* Card 1 */}
+            {/* Card 1 – Karina Peloi Carvalho */}
             <article className="testimonial-card">
               <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
                 <Image
-                  src="/avatar-cliente-1.png"
-                  alt="Mariana Costa"
+                  src="/depo02%20-%20KARINA%20PELOI%20CARVALHO.png"
+                  alt="Karina Peloi Carvalho"
                   fill
                   className="object-cover"
                   sizes="80px"
@@ -418,20 +418,19 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
                 {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
               </div>
               <p className="text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2">
-                A massagem da Simone é completamente diferente de tudo que já experimentei. Em apenas duas sessões, meu abdômen desinflou visivelmente. Indico para todas as minhas amigas!
+                A melhor massagem do Brasil!
               </p>
               <div>
-                <p className="font-semibold text-spa-green text-sm">Mariana Costa</p>
-                <p className="text-xs text-spa-green/50 tracking-wide">@mariana.costa</p>
+                <p className="font-semibold text-spa-green text-sm">Karina Peloi Carvalho</p>
               </div>
             </article>
 
-            {/* Card 2 */}
+            {/* Card 2 – Franziska Hubener */}
             <article className="testimonial-card">
               <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
                 <Image
-                  src="/avatar-cliente-2.png"
-                  alt="Fernanda Lima"
+                  src="/depo01%20-%20Franziska%20Hubener.png"
+                  alt="Franziska Hubener"
                   fill
                   className="object-cover"
                   sizes="80px"
@@ -441,11 +440,10 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
                 {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
               </div>
               <p className="text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2">
-                Fui por indicação e saí completamente apaixonada. O ambiente é impecável, a Simone é uma artista. Meu rosto ficou visivelmente mais definido depois do lifting facial.
+                Fui digitalmente influenciada pela @silviabraz, e marquei uma drenagem espetacular com a Simone Anselmini. Amei!!! Maravilhoso!
               </p>
               <div>
-                <p className="font-semibold text-spa-green text-sm">Fernanda Lima</p>
-                <p className="text-xs text-spa-green/50 tracking-wide">@fer.lima_oficial</p>
+                <p className="font-semibold text-spa-green text-sm">Franziska Hubener</p>
               </div>
             </article>
 
