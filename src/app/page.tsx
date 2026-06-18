@@ -1,10 +1,83 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import VideoPlayer from "./VideoPlayer";
 import Preloader from "./Preloader";
 import AudioPlayer from "./AudioPlayer";
+
+/* ── Expandable Testimonial Card ── */
+function TestimonialCard({
+  imgSrc,
+  imgAlt,
+  quote,
+  name,
+  bio,
+  instagram,
+}: {
+  imgSrc: string;
+  imgAlt: string;
+  quote: string;
+  name: string;
+  bio?: string;
+  instagram?: string;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
+
+  const handleClick = () => setExpanded((prev) => !prev);
+
+  return (
+    <article
+      ref={cardRef}
+      className={`testimonial-card testimonial-card--expandable${expanded ? " is-expanded" : ""}`}
+      onClick={handleClick}
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && handleClick()}
+      aria-expanded={expanded}
+      style={{ cursor: "pointer" }}
+    >
+      <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
+        <Image
+          src={imgSrc}
+          alt={imgAlt}
+          fill
+          className="object-cover"
+          sizes="80px"
+        />
+      </div>
+      <div className="star-rating" aria-label="5 estrelas">
+        {"★★★★★".split("").map((s, i) => (
+          <span key={i}>{s}</span>
+        ))}
+      </div>
+      <div className="testimonial-quote-wrapper">
+        <p className={`text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2 testimonial-quote${expanded ? " testimonial-quote--expanded" : ""}`}>
+          {quote}
+        </p>
+        {!expanded && (
+          <span className="testimonial-read-more">Ler mais ↓</span>
+        )}
+      </div>
+      <div className="flex flex-col gap-1">
+        <p className="font-semibold text-spa-green text-sm">{name}</p>
+        {bio && (
+          <p className="text-[13px] text-spa-green/50 font-sans leading-snug italic px-1">{bio}</p>
+        )}
+        {instagram && (
+          <a
+            href={`https://instagram.com/${instagram.replace('@', '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[13px] font-medium text-spa-terracota hover:text-spa-terracota/80 transition-colors duration-200 mt-0.5"
+          >
+            @{instagram.replace('@', '')}
+          </a>
+        )}
+      </div>
+    </article>
+  );
+}
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -67,7 +140,7 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
             <a href="#treinamento" className="nav-link text-sm lg:text-base">Treinamento</a>
             <a href="#sobre" className="nav-link text-sm lg:text-base">Sobre Simone</a>
             <a 
-              href="https://wa.me/5500000000000" 
+              href="https://wa.me/5511991461975" 
               target="_blank" 
               rel="noopener noreferrer"
               className="px-5 py-2.5 bg-[#e7b07a] hover:bg-[#d69f69] text-spa-green font-medium text-sm lg:text-base rounded-full transition-all duration-300 hover:shadow-lg active:scale-95 transform"
@@ -105,7 +178,7 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
             <a href="#treinamento" onClick={() => setIsMenuOpen(false)} className="nav-link text-base py-1">Treinamento</a>
             <a href="#sobre" onClick={() => setIsMenuOpen(false)} className="nav-link text-base py-1">Sobre Simone</a>
             <a 
-              href="https://wa.me/5500000000000" 
+              href="https://wa.me/5511991461975" 
               target="_blank" 
               rel="noopener noreferrer"
               onClick={() => setIsMenuOpen(false)}
@@ -134,7 +207,9 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
               A verdadeira exclusividade em bem-estar. Uma técnica autoral de contorno e relaxamento profundo, desenhada para quem exige excelência, discrição e resultados visíveis.
             </p>
             <a 
-              href="#agendamento"
+              href="https://wa.me/5511991461975"
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-4 inline-block px-8 py-4 bg-spa-green text-[#e7b07a] font-medium text-lg rounded-lg transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-1 animate-fade-in-left delay-300 text-center"
             >
               Solicitar Atendimento Exclusivo
@@ -318,7 +393,7 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
 
               {/* CTA inline */}
               <a
-                href="https://wa.me/5500000000000"
+                href="https://wa.me/5511991461975"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-3 inline-block self-start px-6 py-2.5 bg-spa-green text-[#e7b07a] font-semibold text-sm rounded-lg hover:bg-[#153029] hover:shadow-md transition-all duration-300"
@@ -329,7 +404,7 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
           </div>
 
           <a 
-            href="https://wa.me/5500000000000" 
+            href="https://wa.me/5511991461975" 
             target="_blank" 
             rel="noopener noreferrer"
             className="px-8 py-4 bg-spa-green text-[#e7b07a] hover:bg-[#153029] hover:shadow-lg transition-all duration-300 font-semibold text-lg rounded-lg text-center"
@@ -403,72 +478,35 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
           {/* ── Bloco A: Text Testimonials Grid ── */}
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
 
-            {/* Card 1 – Karina Peloi Carvalho */}
-            <article className="testimonial-card">
-              <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
-                <Image
-                  src="/depo02%20-%20KARINA%20PELOI%20CARVALHO.png"
-                  alt="Karina Peloi Carvalho"
-                  fill
-                  className="object-cover"
-                  sizes="80px"
-                />
-              </div>
-              <div className="star-rating" aria-label="5 estrelas">
-                {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
-              </div>
-              <p className="text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2">
-                A melhor massagem do Brasil!
-              </p>
-              <div>
-                <p className="font-semibold text-spa-green text-sm">Karina Peloi Carvalho</p>
-              </div>
-            </article>
+            {/* Card 1 – Fran Zanon */}
+            <TestimonialCard
+              imgSrc="/depo_escrito03%20-%20Fran%20Zanon.png"
+              imgAlt="Fran Zanon"
+              name="Fran Zanon"
+              bio="Jornalista com trajetória consolidada na televisão, atua como consultora de imagem e é referência em comunicação, moda e estilo."
+              instagram="franzanonmelles"
+              quote="Faço massagem com a Simone há quase cinco anos e não vivo sem ela! Não é qualquer massagem, é uma experiência muito especial, pois ela tem mãos de fada. É um verdadeiro mimo: um momento de autocuidado, de relaxamento e excelente para desinchar. Só ela consegue deixar o abdômen tão sequinho. Sem contar que ela é uma querida e transmite uma ótima energia, o que faz toda a diferença e completa o pacote. Definitivamente, não vivo sem a Simone."
+            />
 
-            {/* Card 2 – Franziska Hubener */}
-            <article className="testimonial-card">
-              <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
-                <Image
-                  src="/depo01%20-%20Franziska%20Hubener.png"
-                  alt="Franziska Hubener"
-                  fill
-                  className="object-cover"
-                  sizes="80px"
-                />
-              </div>
-              <div className="star-rating" aria-label="5 estrelas">
-                {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
-              </div>
-              <p className="text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2">
-                Fui digitalmente influenciada pela @silviabraz, e marquei uma drenagem espetacular com a Simone Anselmini. Amei!!! Maravilhoso!
-              </p>
-              <div>
-                <p className="font-semibold text-spa-green text-sm">Franziska Hubener</p>
-              </div>
-            </article>
+            {/* Card 2 – Carol Bassi */}
+            <TestimonialCard
+              imgSrc="/depo_escrito02%20-%20Carol%20Bassi.png"
+              imgAlt="Carol Bassi"
+              name="Carol Bassi"
+              bio="Empresária e fundadora da renomada grife homônima, é um dos nomes de maior influência, sofisticação e autoridade no mercado de moda nacional."
+              instagram="annacarolinabassi"
+              quote="A Simone é uma profissional que sabe o que está fazendo. A primeira vez que ela fez massagem em mim, no primeiro toque dela no meu corpo já entendi que ela sabia o que ela estava fazendo, mas ela tem alguma coisa que ainda é maior do que isso. Além dela ter a técnica, ela ama o trabalho dela, isso é visível. Ela se orgulha da profissão dela, ela se orgulha da escolha dela. Ela é uma grande estudiosa. Então as coisas vão acontecendo de uma maneira muito gostosa. Eu me sinto cuidada, eu saio da massagem com a sensação de relaxamento e também me sentindo mais bonita. Ela realmente consegue modelar o corpo."
+            />
 
-            {/* Card 3 */}
-            <article className="testimonial-card">
-              <div className="relative w-20 h-20 rounded-full overflow-hidden shadow-lg ring-2 ring-spa-gold/40 flex-shrink-0">
-                <Image
-                  src="/avatar-cliente-3.png"
-                  alt="Beatriz Nunes"
-                  fill
-                  className="object-cover"
-                  sizes="80px"
-                />
-              </div>
-              <div className="star-rating" aria-label="5 estrelas">
-                {'★★★★★'.split('').map((s, i) => <span key={i}>{s}</span>)}
-              </div>
-              <p className="text-base text-spa-green/85 font-sans leading-relaxed italic z-10 px-2">
-                Vale cada centavo! A técnica dela é única — ao mesmo tempo relaxante e com resultados estéticos reais. Minha silhueta mudou e minha autoestima foi às alturas.
-              </p>
-              <div>
-                <p className="font-semibold text-spa-green text-sm">Beatriz Nunes</p>
-                <p className="text-xs text-spa-green/50 tracking-wide">@bia.nunes_fit</p>
-              </div>
-            </article>
+            {/* Card 3 – Karina Peloi */}
+            <TestimonialCard
+              imgSrc="/depo_escrito01%20-%20Karina%20Peloi.png"
+              imgAlt="Karina Peloi"
+              name="Karina Peloi"
+              bio="Nutricionista de grande destaque nacional, é especialista em emagrecimento feminino e criadora de métodos que já transformaram milhares de mulheres."
+              instagram="karinapeloi"
+              quote="Bom, desde que eu me mudei para São Paulo, há mais de 2 anos, a única massagista da minha vida é a Simone. Desde que cheguei aqui, somente a Simone coloca as mãos em mim. Primeiro porque ela tem uma mão maravilhosa. Gente, ela é imbatível pra deixar a gente desinchada, uma drenagem maravilhosa. Quando a Simone sai, a cintura da gente tá fina. Sem falar em todo o relaxamento. A Simone é uma pessoa incrível, se você quer conversar, ela conversa, é uma pessoa maravilhosa, uma energia maravilhosa. Mas se você só quer relaxar, só quer descansar, ela também respeita esse momento, você descansa, você relaxa. É um momento meu, para mim e por mim. A Simone é maravilhosa, tem mãos maravilhosas, uma presença maravilhosa, uma profissional incrível. É por isso que, desde que eu cheguei em São Paulo, é a única massagista da minha vida."
+            />
 
           </div>{/* /grid */}
 
@@ -483,35 +521,75 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
 
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 lg:gap-8">
 
-              <VideoPlayer
-                src="/video_depoimento_1.mp4"
-                caption="'A melhor drenagem que já fiz na vida.' — Depoimento 1"
-                label="Reproduzir depoimento em vídeo 1"
-              />
+              {/* Video 1 – Ana Carolina Bassi */}
+              <div className="flex flex-col gap-3">
+                <VideoPlayer
+                  src="/video_depoimento_1.mp4"
+                  caption="Ana Carolina Bassi"
+                  label="Reproduzir depoimento de Ana Carolina Bassi"
+                />
+                <div className="flex flex-col gap-1 px-1">
+                  <p className="font-semibold text-spa-sand text-sm">Ana Carolina Bassi</p>
+                  <p className="text-[12px] text-spa-sand/50 font-sans leading-snug italic">Empresária e fundadora da renomada grife homônima, é um dos nomes de maior influência e autoridade no mercado de moda nacional.</p>
+                  <a href="https://instagram.com/annacarolinabassi" target="_blank" rel="noopener noreferrer" className="text-[12px] font-medium text-spa-terracota hover:text-spa-terracota/80 transition-colors duration-200 mt-0.5">@annacarolinabassi</a>
+                </div>
+              </div>
 
-              <VideoPlayer
-                src="/video_depoimento_2.mp4"
-                caption="'Saí completamente transformada.' — Depoimento 2"
-                label="Reproduzir depoimento em vídeo 2"
-              />
+              {/* Video 2 – Renata Kuerten */}
+              <div className="flex flex-col gap-3">
+                <VideoPlayer
+                  src="/video_depoimento_2.mp4"
+                  caption="Renata Kuerten"
+                  label="Reproduzir depoimento de Renata Kuerten"
+                />
+                <div className="flex flex-col gap-1 px-1">
+                  <p className="font-semibold text-spa-sand text-sm">Renata Kuerten</p>
+                  <p className="text-[12px] text-spa-sand/50 font-sans leading-snug italic">Top model internacional e apresentadora de televisão, é reconhecida por sua elegância e forte presença no universo da moda e da mídia.</p>
+                  <a href="https://instagram.com/renatakuerten" target="_blank" rel="noopener noreferrer" className="text-[12px] font-medium text-spa-terracota hover:text-spa-terracota/80 transition-colors duration-200 mt-0.5">@renatakuerten</a>
+                </div>
+              </div>
 
-              <VideoPlayer
-                src="/video_depoimento_3.mp4"
-                caption="'Sensação única de relaxamento e contorno.' — Depoimento 3"
-                label="Reproduzir depoimento em vídeo 3"
-              />
+              {/* Video 3 – Silvia Bussade Braz */}
+              <div className="flex flex-col gap-3">
+                <VideoPlayer
+                  src="/video_depoimento_3.mp4"
+                  caption="Silvia Bussade Braz"
+                  label="Reproduzir depoimento de Silvia Bussade Braz"
+                />
+                <div className="flex flex-col gap-1 px-1">
+                  <p className="font-semibold text-spa-sand text-sm">Silvia Bussade Braz</p>
+                  <p className="text-[12px] text-spa-sand/50 font-sans leading-snug italic">Uma das maiores comunicadoras e influenciadoras digitais do mercado de luxo no Brasil, sendo sinônimo de sofisticação e estilo.</p>
+                  <a href="https://instagram.com/silviabraz" target="_blank" rel="noopener noreferrer" className="text-[12px] font-medium text-spa-terracota hover:text-spa-terracota/80 transition-colors duration-200 mt-0.5">@silviabraz</a>
+                </div>
+              </div>
 
-              <VideoPlayer
-                src="/video_depoimento_4.mp4"
-                caption="'Resultados visíveis logo na primeira sessão.' — Depoimento 4"
-                label="Reproduzir depoimento em vídeo 4"
-              />
+              {/* Video 4 – Julia Norremose Ferreira */}
+              <div className="flex flex-col gap-3">
+                <VideoPlayer
+                  src="/video_depoimento_4.mp4"
+                  caption="Julia Norremose Ferreira"
+                  label="Reproduzir depoimento de Julia Norremose Ferreira"
+                />
+                <div className="flex flex-col gap-1 px-1">
+                  <p className="font-semibold text-spa-sand text-sm">Julia Norremose Ferreira</p>
+                  <p className="text-[12px] text-spa-sand/50 font-sans leading-snug italic">Empreendedora e influenciadora digital de grande destaque, inspira milhares de pessoas com seu lifestyle focado em saúde, bem-estar e alta performance.</p>
+                  <a href="https://instagram.com/jujunorremose" target="_blank" rel="noopener noreferrer" className="text-[12px] font-medium text-spa-terracota hover:text-spa-terracota/80 transition-colors duration-200 mt-0.5">@jujunorremose</a>
+                </div>
+              </div>
 
-              <VideoPlayer
-                src="/video_depoimento_5.mp4"
-                caption="'Uma experiência que mudou minha autoestima.' — Depoimento 5"
-                label="Reproduzir depoimento em vídeo 5"
-              />
+              {/* Video 5 – Thaize Tavares */}
+              <div className="flex flex-col gap-3">
+                <VideoPlayer
+                  src="/video_depoimento_5.mp4"
+                  caption="Thaize Tavares"
+                  label="Reproduzir depoimento de Thaize Tavares"
+                />
+                <div className="flex flex-col gap-1 px-1">
+                  <p className="font-semibold text-spa-sand text-sm">Thaize Tavares</p>
+                  <p className="text-[12px] text-spa-sand/50 font-sans leading-snug italic">Especialista em experiência do cliente e palestrante de destaque, é uma voz influente e respeitada em análises sobre o mercado de luxo.</p>
+                  <a href="https://instagram.com/thaize.tavares" target="_blank" rel="noopener noreferrer" className="text-[12px] font-medium text-spa-terracota hover:text-spa-terracota/80 transition-colors duration-200 mt-0.5">@thaize.tavares</a>
+                </div>
+              </div>
 
             </div>
           </div>{/* /video block */}
@@ -566,6 +644,81 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* ── Nossa Equipe Section ── */}
+      <section id="equipe" className="w-full bg-spa-green flex flex-col items-center py-20 lg:py-32 px-6 lg:px-24">
+        <div className="w-full max-w-5xl flex flex-col items-center gap-14">
+
+          {/* Section header */}
+          <div className="flex flex-col items-center gap-4 text-center max-w-2xl">
+            <span className="text-xs uppercase tracking-[0.3em] text-spa-gold/70 font-sans">
+              Time de especialistas
+            </span>
+            <h2 className="text-3xl lg:text-5xl font-serif text-spa-sand leading-tight">
+              Nossa Equipe
+            </h2>
+            <p className="text-base lg:text-lg text-spa-sand/65 font-sans leading-relaxed">
+              Profissionais rigorosamente treinadas e formadas pelo método Touch Up massage, garantindo o nosso padrão de excelência.
+            </p>
+          </div>
+
+          {/* Team grid – 2 cols desktop / 1 col mobile */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+
+            {/* Card – Gabriela */}
+            <div className="team-card">
+              {/* Photo */}
+              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-xl border border-white/10 mb-6">
+                <Image
+                  src="/equipe-gabriela.jpg"
+                  alt="Gabriela — Massoterapeuta Touch Up Massage"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                {/* Subtle bottom gradient for text contrast */}
+                <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-spa-green/60 to-transparent" />
+              </div>
+              {/* Info */}
+              <div className="flex flex-col gap-2 px-1">
+                <h3 className="text-2xl font-serif text-spa-gold">Gabriela</h3>
+                <p className="text-xs uppercase tracking-[0.2em] text-spa-sand/50 font-sans">
+                  Massoterapeuta formada pelo método Touch Up massage
+                </p>
+                <p className="text-base text-spa-sand/70 font-sans leading-relaxed mt-2">
+                  Com dedicação, sensibilidade e técnica refinada, Gabriela oferece uma experiência completa de bem-estar, aliando precisão nos movimentos ao cuidado genuíno com cada cliente.
+                </p>
+              </div>
+            </div>
+
+            {/* Card – Márcia */}
+            <div className="team-card">
+              {/* Photo */}
+              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-xl border border-white/10 mb-6">
+                <Image
+                  src="/equipe-marcia.jpg"
+                  alt="Márcia — Massoterapeuta Touch Up Massage"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-spa-green/60 to-transparent" />
+              </div>
+              {/* Info */}
+              <div className="flex flex-col gap-2 px-1">
+                <h3 className="text-2xl font-serif text-spa-gold">Márcia</h3>
+                <p className="text-xs uppercase tracking-[0.2em] text-spa-sand/50 font-sans">
+                  Massoterapeuta formada pelo método Touch Up massage
+                </p>
+                <p className="text-base text-spa-sand/70 font-sans leading-relaxed mt-2">
+                  Profissional atenciosa e habilidosa, Márcia transforma cada sessão em um ritual de relaxamento profundo, aplicando o método Touch Up com leveza, firmeza e excelência.
+                </p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -703,7 +856,7 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
               Dois dias práticos · Apostila + Certificado inclusos
             </p>
             <a 
-              href="https://wa.me/5500000000000" 
+              href="https://wa.me/5511991461975" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-block px-10 py-4 bg-spa-green hover:bg-[#153029] text-[#e7b07a] font-medium text-lg rounded-lg transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-1 text-center"
@@ -724,7 +877,9 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
           </div>
           <div className="flex flex-col items-center md:items-end gap-6 text-center md:text-right">
             <a 
-              href="#agendamento"
+              href="https://wa.me/5511991461975"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block px-8 py-4 bg-spa-green border border-[#e7b07a] text-[#e7b07a] font-bold text-base rounded-lg transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1 text-center"
             >
               Consultar Disponibilidade
@@ -736,7 +891,7 @@ c-133 307 -236 721 -277 1115 -18 169 -16 519 4 666 35 257 101 433 204 544
 
       {/* Floating WhatsApp Button */}
       <a 
-        href="https://wa.me/5500000000000" 
+        href="https://wa.me/5511991461975" 
         target="_blank" 
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-spa-green rounded-full p-4 lg:p-5 shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-300 flex items-center justify-center"
